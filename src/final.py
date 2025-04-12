@@ -1,37 +1,26 @@
 from urllib.request import urlopen
-import PySimpleGUI as sg
-from PIL import Image
-import io
+import tkinter as tk
+from PIL import Image, ImageTk
 
 def download_img(url):
     img = urlopen(url)
     with open("userimg.png", "wb") as file:
         file.write(img.read())
 
-layout = [
-    [sg.Text("Paste the URL of the image you wish to color pick from: ")],
-    [sg.InputText(key="url_input")],
-    [sg.Image(filename="", key="userimg")],
-    [sg.Button("Open")]
-]
+def open_img():
+    url = url_entry.get()
+    if url and download_img(url):
+        img = Image.open("userimg.png")
+        img.thumbnail((400,400))
+        img_tk = ImageTk.PhotoImage(img)
 
-window = sg.Window("Color Picker", layout)
+        img_label.config(image = img_tk)
+        img_label.image = img_tk
 
-while True:
-    event, values = window.read()
-
-    if event == sg.WIN_CLOSED:
-        break
-    
-    if event == "Open":
-        url = values["url_input"]
-        if url:
-            download_img(url)
-
-            image = Image.open("userimg.png")
-            image.thumbnail((400, 400))
-            bio = io.BytesIO()
-            image.save(bio, format="PNG")
-            window["userimg"].update(data=bio.getvalue())
-
-window.close()
+root = tk.Tk()
+root.title("Color Picker")
+tk.Label(root, text = "Paste the URL of the image you wish to color pick from: ")
+url_entry = tk.Entry(root, width = 50)
+open_button = tk.Button(root, text = "Open", command = open_img)
+img_label = tk.Label(root)
+root.mainloop()
