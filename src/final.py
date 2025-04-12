@@ -9,13 +9,20 @@ def download_img(url):
 
 def open_img():
     url = url_entry.get()
-    if url and download_img(url):
-        img = Image.open("userimg.png")
-        img.thumbnail((400,400))
-        img_tk = ImageTk.PhotoImage(img)
+    if url:
+        try:
+            print("Downloading image...")
+            download_img(url)
 
-        img_label.config(image = img_tk)
-        img_label.image = img_tk
+            print("Opening image...")
+            img = Image.open("userimg.png")
+            img.thumbnail((400,400))
+            img_tk = ImageTk.PhotoImage(img)
+            img_label.config(image = img_tk)
+            img_label.image = img_tk
+            print("Image opened!")
+        except:
+            print("Error opening image.")
 
 root = tk.Tk()
 root.title("Color Picker")
@@ -25,5 +32,5 @@ url_entry.pack(pady = 5)
 open_button = tk.Button(root, text = "Open", command = open_img)
 open_button.pack(pady = 5)
 img_label = tk.Label(root)
-img_label.pack(pady = 5)
+img_label.pack(pady = 5, fill = "both", expand = True)
 root.mainloop()
