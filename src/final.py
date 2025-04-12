@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 import PySimpleGUI as sg
+from PIL import Image, ImageTk
 import io
 
 def download_img(url):
