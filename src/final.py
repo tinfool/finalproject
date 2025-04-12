@@ -1,6 +1,6 @@
 from urllib.request import urlopen
 import PySimpleGUI as sg
-from PIL import Image, ImageTk
+from PIL import Image
 import io
 
 def download_img(url):
@@ -12,7 +12,7 @@ layout = [
     [sg.Text("Paste the URL of the image you wish to color pick from: ")],
     [sg.InputText(key="url_input")],
     [sg.Image(filename="", key="userimg")],
-    [sg.Button("Done")]
+    [sg.Button("Open")]
 ]
 
 window = sg.Window("Color Picker", layout)
@@ -23,7 +23,7 @@ while True:
     if event == sg.WIN_CLOSED:
         break
     
-    if event == "Done":
+    if event == "Open":
         url = values["url_input"]
         if url:
             download_img(url)
