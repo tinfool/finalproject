@@ -3,14 +3,6 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import pyautogui
 
-class Color():
-    def __init__(self, pos):
-        self.pos = pos
-    
-    def find_color(pos):
-        # at the pixel's location, find the color   
-        print("Your color is... UNKNOWN FOR NOW")
-
 def download_img(url):
     img = urlopen(url)
     with open("userimg.png", "wb") as file:
@@ -35,7 +27,15 @@ def open_img(url_entry, img_label):
 
 def on_click(event):
     x, y = event.x, event.y
-    print(f"You clicked on ({x}, {y}"))
+    print(f"You clicked on ({x}, {y})")
+    mouse_click = (x,y)
+
+def find_color(pos):
+        x, y = pos  
+        img = Image.open("userimg.png")
+        color = img.getpixel((x, y))
+        print(f"The color is {color}.")
+        return color
 
 def main():
     root = tk.Tk()
@@ -51,7 +51,8 @@ def main():
 
     if pyautogui.mouseDown():
         mouse_pos = on_click()
-        selected_color = Color.find_color(mouse_pos)
+        selected_color = find_color(mouse_pos)
+        print(f"Your selected color is {selected_color}.")
     
     root.mainloop()
 
