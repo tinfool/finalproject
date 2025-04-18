@@ -33,11 +33,9 @@ def open_img(url_entry, img_label):
         except:
             print("Error opening image.")
 
-def get_mouse_pos():
-    x, y = pyautogui.position()
-    print(f"Clicked at coordinates: x={x}, y={y}")
-    return pyautogui.position()
-
+def on_click(event):
+    x, y = event.x, event.y
+    print(f"You clicked on ({x}, {y}"))
 
 def main():
     root = tk.Tk()
@@ -47,14 +45,14 @@ def main():
     url_entry.pack(pady = 5)
     img_label = tk.Label(root)
     img_label.pack(pady = 5, fill = "both", expand = True)
+    img_label.bind("<Button-1>", on_click)
     open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry, img_label))
     open_button.pack(pady = 5)
 
     if pyautogui.mouseDown():
-        mouse_pos = get_mouse_pos()
-        selected_color = Color(mouse_pos)
+        mouse_pos = on_click()
+        selected_color = Color.find_color(mouse_pos)
     
-
     root.mainloop()
 
 
