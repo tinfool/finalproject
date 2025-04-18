@@ -4,8 +4,8 @@ from PIL import Image, ImageTk
 import pyautogui
 
 class Color():
-    def __init__(self, pos):
-        self.pos = pos
+    def __init__(self, posx, posy):
+        self.pos = (posx, posy)
     
     def find_color(pos):
         # at the pixel's location, find the color   
@@ -26,7 +26,7 @@ def open_img(url_entry):
             print("Opening image...")
             user_img = Image.open("userimg.png")
             user_img.thumbnail((400,400))
-            user_img_tk = ImageTk.PhotoImage(img)
+            user_img_tk = ImageTk.PhotoImage(user_img)
             user_img.config(image = user_img_tk)
             user_img.image = user_img_tk
             print("Image opened!")
@@ -45,12 +45,13 @@ def main():
     img_label = tk.Label(root)
     img_label.pack(pady = 5, fill = "both", expand = True)
 
-    running = True
-    while running:
-        mouse_posx, mouse_posy = pyautogui.position()
-        print(f"Your mouse is over pixel ({mouse_posx}, {mouse_posy})")
-        mouse_click = pyautogui.click()
-        selected_color = Color(mouse_click)
+    while True:
+        if pyautogui.mouseDown(): #Checks for a mouse click
+            x, y = pyautogui.position()
+            print(f"Clicked at coordinates: x={x}, y={y}")
+            while pyautogui.mouseDown(): #Wait until the mouse is released
+                pass
+    # selected_color = Color(mouse_posx, mouse_posy)
 
     root.mainloop()
 
