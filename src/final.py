@@ -4,8 +4,8 @@ from PIL import Image, ImageTk
 import pyautogui
 
 class Color():
-    def __init__(self, posx, posy):
-        self.pos = (posx, posy)
+    def __init__(self, pos):
+        self.pos = pos
     
     def find_color(pos):
         # at the pixel's location, find the color   
@@ -33,6 +33,11 @@ def open_img(url_entry):
         except:
             print("Error opening image.")
 
+def get_mouse_pos():
+    x, y = pyautogui.position()
+    print(f"Clicked at coordinates: x={x}, y={y}")
+    return pyautogui.position()
+
 
 def main():
     root = tk.Tk()
@@ -40,18 +45,15 @@ def main():
     tk.Label(root, text = "Paste the URL of the image you wish to color pick from: ")
     url_entry = tk.Entry(root, width = 50)
     url_entry.pack(pady = 5)
-    open_button = tk.Button(root, text = "Open", command = open_img(url_entry))
-    open_button.pack(pady = 5)
     img_label = tk.Label(root)
     img_label.pack(pady = 5, fill = "both", expand = True)
+    open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry))
+    open_button.pack(pady = 5)
 
-    while True:
-        if pyautogui.mouseDown(): #Checks for a mouse click
-            x, y = pyautogui.position()
-            print(f"Clicked at coordinates: x={x}, y={y}")
-            while pyautogui.mouseDown(): #Wait until the mouse is released
-                pass
-    # selected_color = Color(mouse_posx, mouse_posy)
+    if pyautogui.mouseDown():
+        mouse_pos = get_mouse_pos()
+        selected_color = Color(mouse_pos)
+    
 
     root.mainloop()
 
