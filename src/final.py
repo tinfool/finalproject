@@ -16,7 +16,7 @@ def download_img(url):
     with open("userimg.png", "wb") as file:
         file.write(img.read())
 
-def open_img(url_entry):
+def open_img(url_entry, img_label):
     url = url_entry.get()
     if url:
         try:
@@ -25,10 +25,10 @@ def open_img(url_entry):
 
             print("Opening image...")
             user_img = Image.open("userimg.png")
-            user_img.thumbnail((400,400))
+            user_img.thumbnail((400, 400))
             user_img_tk = ImageTk.PhotoImage(user_img)
-            user_img.config(image = user_img_tk)
-            user_img.image = user_img_tk
+            img_label.config(image=user_img_tk)
+            img_label.image = user_img_tk
             print("Image opened!")
         except:
             print("Error opening image.")
@@ -47,7 +47,7 @@ def main():
     url_entry.pack(pady = 5)
     img_label = tk.Label(root)
     img_label.pack(pady = 5, fill = "both", expand = True)
-    open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry))
+    open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry, img_label))
     open_button.pack(pady = 5)
 
     if pyautogui.mouseDown():
