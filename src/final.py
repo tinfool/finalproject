@@ -27,15 +27,10 @@ def open_img(url_entry, img_label):
 
 def on_click(event):
     x, y = event.x, event.y
-    print(f"You clicked on ({x}, {y})")
-    mouse_click = (x,y)
-
-def find_color(pos):
-        x, y = pos  
-        img = Image.open("userimg.png")
-        color = img.getpixel((x, y))
-        print(f"The color is {color}.")
-        return color
+    print(f"You clicked on pixel ({x}, {y})")
+    img = Image.open("userimg.png")
+    color = img.getpixel((x, y))
+    print(f"The color you clicked on is {color}.")
 
 def main():
     root = tk.Tk()
@@ -51,8 +46,7 @@ def main():
 
     if pyautogui.mouseDown():
         mouse_pos = on_click()
-        selected_color = find_color(mouse_pos)
-        print(f"Your selected color is {selected_color}.")
+
     
     root.mainloop()
 
