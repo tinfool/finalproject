@@ -44,11 +44,15 @@ def main():
     open_button.pack(pady = 5)
     img_label = tk.Label(root)
     img_label.pack(pady = 5, fill = "both", expand = True)
+
+    running = True
+    while running:
+        mouse_posx, mouse_posy = pyautogui.position()
+        print(f"Your mouse is over pixel ({mouse_posx}, {mouse_posy})")
+        mouse_click = pyautogui.click()
+        selected_color = Color(mouse_click)
+
     root.mainloop()
-    mouse_posx, mouse_posy = pyautogui.position()
-    print(f"Your mouse is over pixel ({mouse_posx}, {mouse_posy})")
-    mouse_click = pyautogui.click()
-    selected_color = Color(mouse_click)
 
 
 if __name__ == "__main__":
