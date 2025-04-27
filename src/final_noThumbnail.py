@@ -8,7 +8,7 @@ def download_img(url):
     with open("userimg.png", "wb") as file:
         file.write(img.read())
 
-def open_img(url_entry, img_label, shared_data):
+def open_img(url_entry, img_label):
     url = url_entry.get()
     if url:
         try:
@@ -16,27 +16,20 @@ def open_img(url_entry, img_label, shared_data):
             download_img(url)
 
             print("Opening image...")
-            original_img = Image.open("userimg.png")
-            original_img.thumbnail((400, 400))
-            shared_data["thumbnail"] = original_img
-            user_img_tk = ImageTk.PhotoImage(original_img)
+            user_img = Image.open("userimg.png")
+            user_img_tk = ImageTk.PhotoImage(user_img)
             img_label.config(image=user_img_tk)
             img_label.image = user_img_tk
             print("Image opened!")
         except:
             print("Error opening image.")
+            
 
-def on_click(event, C, shared_data):
-    thumbnail_img = shared_data.get("thumbnail")
-    if thumbnail_img is None:
-        print("Something didn't work...")
-    
+def on_click(event, C):
     x, y = event.x, event.y
-    width, height = thumbnail_img.size
-    if 0 <= x < width and 0 <= y < height:
-        color = thumbnail_img.getpixel((x, y))
-        print(f"Color: {color}")
-        print(f"x: {x} y: {y}")
+    color = user_img.getpixel((x, y))
+    print(f"Color: {color}")
+    print(f"x: {x} y: {y}")
     hex_color = "#%02x%02x%02x" % color
     C.config(bg = hex_color)
 
@@ -50,11 +43,11 @@ def main():
     text.pack()
     url_entry = tk.Entry(root, width = 50)
     url_entry.pack(pady = 5)
-    open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry, img_label, shared_data))
+    open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry, img_label))
     open_button.pack(pady = 5)
     img_label = tk.Label(root)
     img_label.pack(pady = 5, fill = "both", expand = True)
-    img_label.bind("<Button-1>", lambda e: on_click(e, C, shared_data))
+    img_label.bind("<Button-1>", lambda e: on_click(e, C))
 
     root.mainloop()
 
