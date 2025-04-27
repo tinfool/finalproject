@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 import tkinter as tk
+from tkinter import *
 from PIL import Image, ImageTk
 import pyautogui
 
@@ -35,7 +36,10 @@ def on_click(event):
 def main():
     root = tk.Tk()
     root.title("Color Picker")
-    tk.Label(root, text = "Paste the URL of the image you wish to color pick from: ")
+    C = Canvas(root, bg = "white", height = 300, width = 300)
+    C.pack()
+    text  = tk.Label(root, text = "Paste the URL of the image you wish to color pick from: ")
+    text.pack()    
     url_entry = tk.Entry(root, width = 50)
     url_entry.pack(pady = 5)
     img_label = tk.Label(root)
@@ -44,10 +48,6 @@ def main():
     open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry, img_label))
     open_button.pack(pady = 5)
 
-    if pyautogui.mouseDown():
-        mouse_pos = on_click()
-
-    
     root.mainloop()
 
 
