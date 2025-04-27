@@ -26,12 +26,13 @@ def open_img(url_entry, img_label):
         except:
             print("Error opening image.")
 
-def on_click(event):
+def on_click(event, C):
     x, y = event.x, event.y
-    print(f"You clicked on pixel ({x}, {y})")
     img = Image.open("userimg.png")
     color = img.getpixel((x, y))
-    print(f"The color you clicked on is {color}.")
+    hex_color = "#%02x%02x%02x" % color
+    C.config(bg = hex_color)
+
 
 def main():
     root = tk.Tk()
@@ -42,11 +43,11 @@ def main():
     text.pack()    
     url_entry = tk.Entry(root, width = 50)
     url_entry.pack(pady = 5)
-    img_label = tk.Label(root)
-    img_label.pack(pady = 5, fill = "both", expand = True)
-    img_label.bind("<Button-1>", on_click)
     open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry, img_label))
     open_button.pack(pady = 5)
+    img_label = tk.Label(root)
+    img_label.pack(pady = 5, fill = "both", expand = True)
+    img_label.bind("<Button-1>", lambda e: on_click(e, C))
 
     root.mainloop()
 
