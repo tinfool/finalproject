@@ -36,10 +36,10 @@ def on_click(event, C, shared_data):
     width, height = thumbnail_img.size
     if 0 <= x < width and 0 <= y < height:
         color = thumbnail_img.getpixel((x, y))
-        print(f"Color: {color}")
-        print(f"x: {x} y: {y}")
     hex_color = "#%02x%02x%02x" % color
+    r_color, g_color, b_color = color
     C.create_text(150, 150, text= hex_color, fill="black", font=('Helvetica 15 bold'), tag = "color_text")
+    C.create_text(150, 200, text= f"({r_color}, {g_color}, {b_color})", fill="black", font=('Helvetica 15 bold'), tag = "color_text")
     C.config(bg = hex_color)
 
 
