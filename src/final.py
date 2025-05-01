@@ -27,6 +27,7 @@ def open_img(url_entry, img_label, shared_data):
             print("Error opening image.")
 
 def on_click(event, C, shared_data):
+    C.delete("color_text")
     thumbnail_img = shared_data.get("thumbnail")
     if thumbnail_img is None:
         print("Something didn't work...")
@@ -38,6 +39,7 @@ def on_click(event, C, shared_data):
         print(f"Color: {color}")
         print(f"x: {x} y: {y}")
     hex_color = "#%02x%02x%02x" % color
+    C.create_text(150, 150, text= hex_color, fill="black", font=('Helvetica 15 bold'), tag = "color_text")
     C.config(bg = hex_color)
 
 
