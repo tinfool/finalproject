@@ -14,15 +14,18 @@ def open_img(url_entry, img_label):
         try:
             print("Downloading image...")
             download_img(url)
-
             print("Opening image...")
             user_img = Image.open("userimg.png")
-            user_img_tk = ImageTk.PhotoImage(user_img)
-            img_label.config(image=user_img_tk)
-            img_label.image = user_img_tk
-            print("Image opened!")
+            show_image(user_img, img_label)
         except:
             print("Error opening image.")
+
+def show_image(user_img, img_label):
+    user_img_tk = ImageTk.PhotoImage(user_img)
+    img_label.config(image=user_img_tk)
+    img_label.image = user_img_tk
+    print("Image opened!")
+
             
 
 def on_click(event, C):
@@ -43,11 +46,11 @@ def main():
     text.pack()
     url_entry = tk.Entry(root, width = 50)
     url_entry.pack(pady = 5)
+    img_label = tk.Label(root)
+    img_label.pack(pady = 5, fill = "none", expand = True)
+    img_label.bind("<Button-1>", lambda e: on_click(e, C))
     open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry, img_label))
     open_button.pack(pady = 5)
-    img_label = tk.Label(root)
-    img_label.pack(pady = 5, fill = "both", expand = True)
-    img_label.bind("<Button-1>", lambda e: on_click(e, C))
 
     root.mainloop()
 

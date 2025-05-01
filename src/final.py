@@ -50,10 +50,11 @@ def main():
     text.pack()
     url_entry = tk.Entry(root, width = 50)
     url_entry.pack(pady = 5)
+    shared_data = {}
     open_button = tk.Button(root, text = "Open", command = lambda: open_img(url_entry, img_label, shared_data))
     open_button.pack(pady = 5)
     img_label = tk.Label(root)
-    img_label.pack(pady = 5, fill = "both", expand = True)
+    img_label.pack(pady = 5, fill = "none", expand = True)
     img_label.bind("<Button-1>", lambda e: on_click(e, C, shared_data))
 
     root.mainloop()
