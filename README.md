@@ -1,1 +1,4 @@
 My Color Picker program uses Tkinter to create a small window where the user can paste the url of an image. This image is thumbnailed to fit in the window, where the user can then click on the small image to display the hexcode and rgb value of the pixel selected.
+
+Starting in the main function, I create the root and canvas (C) where our color picker program will live. It took me a while to understand the syntax for this library, but I believe it turned out well! There is a line of text prompting the url entry. To make sure the image fit in the window, I was required to thumbnail it, but that posed other issues with separating the original image from the thumbnailed one. I had to create an empty dictionary which would then add the original image to the dictionary as "thumbnail" so it could be resized as a separate thing from the original.
+
