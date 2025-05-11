@@ -1,0 +1,1 @@
+My Color Picker program uses Tkinter to create a small window where the user can paste the url of an image. This image is thumbnailed to fit in the window, where the user can then click on the small image to display the hexcode and rgb value of the pixel selected.
